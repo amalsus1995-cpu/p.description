@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>بوتيك الأناقة | تشكيلة حصرية بخصم 30%</title>
+  <title>بوتيك الأناقة | خصم 30%</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -46,34 +46,9 @@
 
     .container { max-width: 1250px; margin: 1.5rem auto; padding: 0 1rem; }
 
-    .tabs {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding-bottom: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    .tab-btn {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 0.5rem 1.2rem;
-      border-radius: 30px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.2s;
-      color: var(--text-muted);
-    }
-    .tab-btn.active, .tab-btn:hover {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
-
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1.5rem;
     }
 
@@ -85,12 +60,7 @@
       display: flex;
       flex-direction: column;
       box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-      transition: transform 0.2s, box-shadow 0.2s;
       position: relative;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 20px rgba(190, 24, 93, 0.1);
     }
     .discount-badge {
       position: absolute;
@@ -106,30 +76,20 @@
     }
     .card-img-wrap {
       width: 100%;
-      height: 330px;
-      background: #fdf4f7;
+      height: 380px;
+      background: #f1f5f9;
       overflow: hidden;
     }
     .card-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.3s;
-    }
-    .card:hover .card-img {
-      transform: scale(1.04);
     }
     .card-content {
       padding: 1.2rem;
       display: flex;
       flex-direction: column;
       flex: 1;
-    }
-    .cat-tag {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--accent);
-      margin-bottom: 0.3rem;
     }
     .card-title {
       font-size: 1.05rem;
@@ -141,7 +101,6 @@
       font-size: 0.85rem;
       color: var(--text-muted);
       margin-bottom: 1rem;
-      line-height: 1.4;
       flex: 1;
     }
     .price-box {
@@ -169,176 +128,60 @@
       border-radius: 10px;
       font-weight: 700;
       font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-    .btn-order:hover {
-      opacity: 0.9;
     }
   </style>
 </head>
 <body>
 
-  <div class="top-banner">✨ تخفيضات الموسم الكبرى: خصم 30% على جميع الموديلات لفترة محدودة! ✨</div>
+  <div class="top-banner">✨ خصم 30% لفترة محدودة على جميع المعروضات ✨</div>
 
   <header>
     <div class="brand">MODA & LINGERIE</div>
-    <div style="font-size: 0.85rem; color: var(--text-muted);">توصيل فوري وسريع | دفع عند الاستلام</div>
+    <div style="font-size: 0.85rem; color: var(--text-muted);">توصيل فوري وسريع</div>
   </header>
 
   <div class="container">
-    <div class="tabs">
-      <button class="tab-btn active" onclick="filterCategory('all', this)">كل الموديلات</button>
-      <button class="tab-btn" onclick="filterCategory('short', this)">فساتين قصيرة ومفتوحة</button>
-      <button class="tab-btn" onclick="filterCategory('bride', this)">تفريعات وروب عرايس</button>
-      <button class="tab-btn" onclick="filterCategory('sets', this)">أطقم لانجري دانتيل</button>
-    </div>
-
     <div class="grid" id="productsGrid"></div>
   </div>
 
   <script>
-    // المنتجات المستخرجة من الصور مع خصم 30% وروابط مباشرة جاهزة
     const products = [
       {
         id: 1,
-        title: "فستان أحمر قصير بأربطة جانبية متقاطعة (Code 155)",
-        category: "short",
-        categoryName: "فساتين قصيرة",
-        desc: "تصميم جريء فري سايز بقماش مخمل ناعم وأربطة مشد جانبية وصدرية مفتوحة.",
-        oldPrice: 15000,
-        image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=700&q=80"
-      },
-      {
-        id: 2,
-        title: "قميص نوم أحمر طويل دانتيل شباك (كود 0160)",
-        category: "bride",
-        categoryName: "تفريعات نوم",
-        desc: "دانتيل شفاف بنقشة زهور أنيقة مع فتحة رقبة واسعة وقصة ماكسي انسيابية.",
-        oldPrice: 18000,
-        image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=700&q=80"
-      },
-      {
-        id: 3,
-        title: "بيبي دول أحمر تل ناعم مع تفاصيل كشكش",
-        category: "short",
-        categoryName: "فساتين قصيرة",
-        desc: "صدرية دانتيل فاخرة مع تنورة قصيرة من التل الشفاف الخفيف وكلوت متناسق.",
-        oldPrice: 12000,
-        image: "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=700&q=80"
-      },
-      {
-        id: 4,
-        title: "فستان ضيق أحمر مع رباط جانبي قابل للزم",
-        category: "short",
-        categoryName: "فساتين قصيرة",
-        desc: "قصة مزمومة قابلة لتعديل الطول مع صدرية دانتيل مطرزة لإطلالة جذابة ومثيرة.",
-        oldPrice: 14000,
-        image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=700&q=80"
-      },
-      {
-        id: 5,
-        title: "تفريعة تول ودانتيل شادو نبيتي (Model 8064)",
-        category: "short",
-        categoryName: "فساتين قصيرة",
-        desc: "لون خمري أنيق مع كورسيه شفاف دانتيل وقصة حافة غير متماثلة بكشكشة عصرية.",
+        title: "فستان لانجري أحمر شراشيب ودانتيل",
+        desc: "صدرية دانتيل مطرزة بحمالات متقاطعة مع تنورة شراشيب ناعمة وأربطة جانبية جذابة.",
         oldPrice: 16000,
-        image: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=700&q=80"
-      },
-      {
-        id: 6,
-        title: "طقم روب وفستان سهرة أحمر دانتيل تركي",
-        category: "bride",
-        categoryName: "تفريعات وروب عرايس",
-        desc: "فستان بحمالات رفيعة مع روب دانتيل طويل بأكمام واسعة وحزام ساتان للخصر.",
-        oldPrice: 24000,
-        image: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=700&q=80"
-      },
-      {
-        id: 7,
-        title: "فستان بوش أب أحمر تل مطرز (تركياتا كولكشن)",
-        category: "bride",
-        categoryName: "تفريعات وروب عرايس",
-        desc: "كأس صدرية داعمة Push-Up مع تطريز دانتيل بارز وتنورة تل واسعة ورباط عنق.",
-        oldPrice: 20000,
-        image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=700&q=80"
-      },
-      {
-        id: 8,
-        title: "تفريعة نوم تركواز مريحة للعرايس (SH-28)",
-        category: "bride",
-        categoryName: "تفريعات نوم",
-        desc: "تل شفاف باللون التركوازي الهادئ مع تطريز صدرية أنيق وقصة خلفية مميزة.",
-        oldPrice: 13500,
-        image: "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?auto=format&fit=crop&w=700&q=80"
-      },
-      {
-        id: 9,
-        title: "طقم لانجري نسائي دانتيل رمادي بسلك داخلي",
-        category: "sets",
-        categoryName: "أطقم لانجري",
-        desc: "براليت مريحة بسلك رفع وقماش دانتيل ناعم مع كلوت متناسق بفيونكة كلاسيكية.",
-        oldPrice: 9000,
-        image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=700&q=80"
-      },
-      {
-        id: 10,
-        title: "طقم لانجري دانتيل أخضر فاتح (FineLook)",
-        category: "sets",
-        categoryName: "أطقم لانجري",
-        desc: "خامة دانتيل قطنية ناعمة توفر الراحة والأناقة اليومية مع دعم مثالي للصدر.",
-        oldPrice: 9500,
-        image: "https://images.unsplash.com/photo-1574015974293-817f0ebebb74?auto=format&fit=crop&w=700&q=80"
+        image: "1790426207789.jpg"
       }
     ];
 
-    const myWhatsAppNumber = "905555555555"; // ضع رقمك هنا
+    const myWhatsAppNumber = "905000000000"; // استبدله برقم هاتفك للواتساب
 
-    function renderProducts(items) {
-      const grid = document.getElementById('productsGrid');
-      grid.innerHTML = '';
+    const grid = document.getElementById('productsGrid');
+    products.forEach(p => {
+      const salePrice = Math.round(p.oldPrice * 0.70); // خصم 30%
+      const msg = encodeURIComponent(`مرحباً، أود طلب: "${p.title}" بسعر العرض (${salePrice.toLocaleString()}) بعد الخصم 30%`);
+      const waLink = `https://wa.me/${myWhatsAppNumber}?text=${msg}`;
 
-      items.forEach(p => {
-        const salePrice = Math.round(p.oldPrice * 0.70); // خصم 30%
-        const msg = encodeURIComponent(`مرحباً، أود طلب الموديل: "${p.title}" بالسعر بعد خصم 30% (${salePrice.toLocaleString()})`);
-        const waLink = `https://wa.me/${myWhatsAppNumber}?text=${msg}`;
-
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <div class="discount-badge">خصم 30%</div>
-          <div class="card-img-wrap">
-            <img class="card-img" src="${p.image}" alt="${p.title}">
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="discount-badge">خصم 30%</div>
+        <div class="card-img-wrap">
+          <img class="card-img" src="${p.image}" alt="${p.title}">
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">${p.title}</h3>
+          <p class="card-desc">${p.desc}</p>
+          <div class="price-box">
+            <span class="sale-price">${salePrice.toLocaleString()}</span>
+            <span class="regular-price">${p.oldPrice.toLocaleString()}</span>
           </div>
-          <div class="card-content">
-            <span class="cat-tag">${p.categoryName}</span>
-            <h3 class="card-title">${p.title}</h3>
-            <p class="card-desc">${p.desc}</p>
-            <div class="price-box">
-              <span class="sale-price">${salePrice.toLocaleString()}</span>
-              <span class="regular-price">${p.oldPrice.toLocaleString()}</span>
-            </div>
-            <a href="${waLink}" target="_blank" class="btn-order">طلب فوري عبر واتساب</a>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    function filterCategory(cat, btn) {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      if (cat === 'all') {
-        renderProducts(products);
-      } else {
-        renderProducts(products.filter(p => p.category === cat));
-      }
-    }
-
-    renderProducts(products);
+          <a href="${waLink}" target="_blank" class="btn-order">طلب عبر واتساب</a>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
   </script>
 </body>
 </html>
