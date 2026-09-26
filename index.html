@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة التحقق الموحد | بيئة تجريبية</title>
+    <!-- استدعاء خط تجوال العربي -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .auth-card {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 420px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            padding: 32px 24px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .logo-badge {
+            width: 60px;
+            height: 60px;
+            background: #eff6ff;
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 auto 16px;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        p.description {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-bottom: 24px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* شاشة التحقق والرقم العشوائي */
+        .verification-step {
+            display: none;
+        }
+
+        .code-display {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px dashed var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 20px auto;
+            background: #f8fafc;
+        }
+
+        .timer {
+            font-size: 13px;
+            color: var(--text-sub);
+            margin-bottom: 20px;
+        }
+
+        .btn-cancel {
+            background: none;
+            border: none;
+            color: var(--text-sub);
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .test-notice {
+            margin-top: 24px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
+            font-size: 11px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-card">
+        <!-- أيقونة / شعار وهمي -->
+        <div class="logo-badge">QA</div>
+
+        <!-- الخطوة 1: إدخال البيانات -->
+        <div id="step-login">
+            <h2>بوابة الدخول الموحد</h2>
+            <p class="description">أدخل رقم الهوية أو اسم المستخدم للمتابعة</p>
+
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="userId">رقم المعرّف / الهوية</label>
+                    <input type="text" id="userId" placeholder="مثال: 1023456789" required autocomplete="off">
+                </div>
+                <button type="submit" class="btn-submit">تسجيل الدخول</button>
+            </form>
+        </div>
+
+        <!-- الخطوة 2: عرض رمز التأكيد والانتظار -->
+        <div id="step-verify" class="verification-step">
+            <h2>تأكيد الطلب</h2>
+            <p class="description">الرجاء اختيار الرقم التالي من تطبيق المصادقة الخاص بك:</p>
+
+            <!-- الرقم التلقائي -->
+            <div class="code-display" id="displayCode">--</div>
+
+            <div class="timer">
+                متبقي على انتهاء الصلاحية: <span id="timeLeft">60</span> ثانية
+            </div>
+
+            <button type="button" class="btn-cancel" id="btnCancel">إلغاء والعودة</button>
+        </div>
+
+        <div class="test-notice">
+            واجهة تجريبية لأغراض الاختبار وتطوير الواجهات فقط
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const stepLogin = document.getElementById('step-login');
+        const stepVerify = document.getElementById('step-verify');
+        const displayCode = document.getElementById('displayCode');
+        const timeLeft = document.getElementById('timeLeft');
+        const btnCancel = document.getElementById('btnCancel');
+
+        let timerInterval = null;
+
+        // عند إرسال النموذج
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // توليد رقم عشوائي بين 10 و 99
+            const randomCode = Math.floor(Math.random() * 90) + 10;
+            displayCode.textContent = randomCode;
+
+            // التبديل بين الواجهات
+            stepLogin.style.display = 'none';
+            stepVerify.style.display = 'block';
+
+            // تشغيل العداد التنازلي (60 ثانية)
+            startCountdown(60);
+        });
+
+        // زر العودة
+        btnCancel.addEventListener('click', resetFlow);
+
+        function startCountdown(seconds) {
+            clearInterval(timerInterval);
+            let remaining = seconds;
+            timeLeft.textContent = remaining;
+
+            timerInterval = setInterval(() => {
+                remaining--;
+                timeLeft.textContent = remaining;
+
+                if (remaining <= 0) {
+                    clearInterval(timerInterval);
+                    alert('انتهت صلاحية الجلسة التجريبية.');
+                    resetFlow();
+                }
+            }, 1000);
+        }
+
+        function resetFlow() {
+            clearInterval(timerInterval);
+            document.getElementById('userId').value = '';
+            stepVerify.style.display = 'none';
+            stepLogin.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
