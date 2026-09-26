@@ -76,7 +76,7 @@
     }
     .card-img-wrap {
       width: 100%;
-      height: 380px;
+      height: 420px;
       background: #f1f5f9;
       overflow: hidden;
     }
@@ -92,7 +92,7 @@
       flex: 1;
     }
     .card-title {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 700;
       color: var(--primary);
       margin-bottom: 0.4rem;
@@ -128,6 +128,7 @@
       border-radius: 10px;
       font-weight: 700;
       font-size: 0.95rem;
+      display: block;
     }
   </style>
 </head>
@@ -141,47 +142,24 @@
   </header>
 
   <div class="container">
-    <div class="grid" id="productsGrid"></div>
-  </div>
-
-  <script>
-    const products = [
-      {
-        id: 1,
-        title: "فستان لانجري أحمر شراشيب ودانتيل",
-        desc: "صدرية دانتيل مطرزة بحمالات متقاطعة مع تنورة شراشيب ناعمة وأربطة جانبية جذابة.",
-        oldPrice: 16000,
-        image: "1790426207789.jpg"
-      }
-    ];
-
-    const myWhatsAppNumber = "905000000000"; // استبدله برقم هاتفك للواتساب
-
-    const grid = document.getElementById('productsGrid');
-    products.forEach(p => {
-      const salePrice = Math.round(p.oldPrice * 0.70); // خصم 30%
-      const msg = encodeURIComponent(`مرحباً، أود طلب: "${p.title}" بسعر العرض (${salePrice.toLocaleString()}) بعد الخصم 30%`);
-      const waLink = `https://wa.me/${myWhatsAppNumber}?text=${msg}`;
-
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
+    <div class="grid">
+      <div class="card">
         <div class="discount-badge">خصم 30%</div>
         <div class="card-img-wrap">
-          <img class="card-img" src="${p.image}" alt="${p.title}">
+          <img class="card-img" src="https://images.weserv.nl/?url=ae01.alicdn.com/kf/S91f18167cbaf48098c21845182aa8304i.jpg" alt="فستان لانجري أحمر شراشيب ودانتيل">
         </div>
         <div class="card-content">
-          <h3 class="card-title">${p.title}</h3>
-          <p class="card-desc">${p.desc}</p>
+          <h3 class="card-title">فستان لانجري أحمر شراشيب ودانتيل</h3>
+          <p class="card-desc">صدرية دانتيل مطرزة بحمالات متقاطعة مع تنورة شراشيب ناعمة وأربطة جانبية جذابة.</p>
           <div class="price-box">
-            <span class="sale-price">${salePrice.toLocaleString()}</span>
-            <span class="regular-price">${p.oldPrice.toLocaleString()}</span>
+            <span class="sale-price">11,200</span>
+            <span class="regular-price">16,000</span>
           </div>
-          <a href="${waLink}" target="_blank" class="btn-order">طلب عبر واتساب</a>
+          <a href="https://wa.me/905000000000?text=مرحباً، أود طلب فستان لانجري أحمر شراشيب ودانتيل بسعر 11,200 بعد الخصم" target="_blank" class="btn-order">طلب عبر واتساب</a>
         </div>
-      `;
-      grid.appendChild(card);
-    });
-  </script>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
