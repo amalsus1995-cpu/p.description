@@ -3,25 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>بوتيك الفساتين الراقية | تشكيلة حصرية</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>متجر النخبة | خصم حصري 30%</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #121d28;
-      --accent: #c49b63;
-      --bg: #f8f9fa;
-      --card-bg: #ffffff;
-      --text: #2d3748;
-      --text-muted: #718096;
+      --primary: #0f172a;
+      --accent: #2563eb;
+      --sale: #e11d48;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
       --border: #e2e8f0;
+      --whatsapp: #25d366;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
-    body { background-color: var(--bg); color: var(--text); }
+    body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
 
-    /* Header & Navigation */
+    /* Top Bar */
+    .top-banner {
+      background: var(--sale);
+      color: #fff;
+      text-align: center;
+      padding: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    /* Navbar */
     header {
-      background: var(--card-bg);
+      background: var(--card);
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
@@ -30,349 +42,308 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
-    .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
-    .cart-btn {
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      padding: 0.5rem 1.2rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .brand { font-size: 1.5rem; font-weight: 800; color: var(--primary); }
 
     /* Container */
-    .container { max-width: 1300px; margin: 2rem auto; padding: 0 1rem; }
+    .container { max-width: 1250px; margin: 2rem auto; padding: 0 1.5rem; }
 
-    /* Filter Bar */
-    .controls-bar {
+    /* Categories Tabs */
+    .tabs {
       display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      background: var(--card-bg);
-      padding: 1.2rem;
-      border-radius: 12px;
-      margin-bottom: 2rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-      align-items: center;
-      justify-content: space-between;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
-    .search-box { flex: 1; min-width: 250px; }
-    .search-box input {
-      width: 100%;
-      padding: 0.6rem 1rem;
+    .tab-btn {
+      background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      padding: 0.6rem 1.4rem;
+      border-radius: 30px;
       font-size: 0.95rem;
-      outline: none;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+      color: var(--text-muted);
     }
-    .filters { display: flex; gap: 0.8rem; }
-    .filters select {
-      padding: 0.6rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: white;
-      outline: none;
-      font-size: 0.9rem;
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
     }
 
     /* Product Grid */
-    .product-grid {
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1.8rem;
     }
 
-    /* Product Card */
+    /* Card */
     .card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      overflow: hidden;
+      background: var(--card);
+      border-radius: 16px;
       border: 1px solid var(--border);
-      transition: transform 0.2s, box-shadow 0.2s;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
     }
     .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.07);
+    }
+    .discount-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--sale);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      box-shadow: 0 2px 8px rgba(225, 29, 72, 0.3);
+    }
+    .card-img-wrap {
+      width: 100%;
+      height: 280px;
+      background: #f1f5f9;
+      overflow: hidden;
     }
     .card-img {
       width: 100%;
-      height: 340px;
+      height: 100%;
       object-fit: cover;
-      background: #eee;
+      transition: transform 0.3s;
     }
-    .card-body { padding: 1.2rem; display: flex; flex-direction: column; flex: 1; }
-    .card-designer { font-size: 0.75rem; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 0.3rem; }
-    .card-title { font-size: 1rem; font-weight: 600; color: var(--primary); margin-bottom: 0.5rem; line-height: 1.4; }
-    .card-price { font-size: 1.2rem; font-weight: 700; color: var(--primary); margin-bottom: 1rem; }
-    .card-price span { font-size: 0.85rem; font-weight: normal; color: var(--text-muted); }
-    .card-btn {
-      margin-top: auto;
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 0.7rem;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: opacity 0.2s;
+    .card:hover .card-img {
+      transform: scale(1.05);
     }
-    .card-btn:hover { opacity: 0.9; }
-
-    /* Load More Button */
-    .load-more-container { text-align: center; margin: 3rem 0; }
-    .btn-load {
-      background: transparent;
-      border: 2px solid var(--primary);
-      color: var(--primary);
-      padding: 0.8rem 2.5rem;
-      font-size: 1rem;
-      font-weight: 700;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .btn-load:hover { background: var(--primary); color: white; }
-
-    /* Cart Sidebar */
-    .cart-drawer {
-      position: fixed;
-      top: 0;
-      left: -400px;
-      width: 380px;
-      height: 100vh;
-      background: white;
-      box-shadow: 4px 0 20px rgba(0,0,0,0.2);
-      z-index: 2000;
-      transition: left 0.3s ease;
-      padding: 1.5rem;
+    .card-content {
+      padding: 1.2rem;
       display: flex;
       flex-direction: column;
+      flex: 1;
     }
-    .cart-drawer.open { left: 0; }
-    .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 1rem; }
-    .cart-items { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; }
-    .cart-item { display: flex; gap: 10px; border-bottom: 1px solid #f1f1f1; padding-bottom: 8px; }
-    .cart-item img { width: 60px; height: 75px; object-fit: cover; border-radius: 6px; }
-    .btn-checkout {
-      background: #25d366;
-      color: white;
+    .cat-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      line-height: 1.4;
+      flex: 1;
+    }
+    .price-box {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+    .sale-price {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--sale);
+    }
+    .regular-price {
+      font-size: 0.9rem;
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+    .btn-order {
+      background: var(--whatsapp);
+      color: #fff;
       text-decoration: none;
       text-align: center;
-      padding: 0.9rem;
-      border-radius: 8px;
+      padding: 0.75rem;
+      border-radius: 10px;
       font-weight: 700;
-      margin-top: 1rem;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity 0.2s;
+    }
+    .btn-order:hover {
+      opacity: 0.9;
     }
   </style>
 </head>
 <body>
 
+  <div class="top-banner">🔥 عروض خاصة وتصفيات كبرى: خصم 30% على جميع المعروضات لفترة محدودة! 🔥</div>
+
   <header>
-    <div class="logo">LUXE DRESSES</div>
-    <button class="cart-btn" onclick="toggleCart()">
-      🛒 السلة (<span id="cartCount">0</span>)
-    </button>
+    <div class="brand">AL-NOKHBA STORE</div>
+    <div style="font-size: 0.9rem; color: var(--text-muted);">توصيل فوري | دفع عند الاستلام</div>
   </header>
 
   <div class="container">
-    <!-- أدوات التصفية والبحث في الكتالوج -->
-    <div class="controls-bar">
-      <div class="search-box">
-        <input type="text" id="searchInput" placeholder="ابحث بين آلاف الفساتين بالاسم أو المصمم..." oninput="handleSearch()">
-      </div>
-      <div class="filters">
-        <select id="sortFilter" onchange="handleSort()">
-          <option value="default">الترتيب الافتراضي</option>
-          <option value="low-high">السعر: من الأقل للأعلى</option>
-          <option value="high-low">السعر: من الأعلى للأقل</option>
-        </select>
-        <select id="categoryFilter" onchange="handleCategory()">
-          <option value="all">كل الفئات</option>
-          <option value="قفطان">قفاطين</option>
-          <option value="سهرة">فساتين سهرة</option>
-          <option value="ميدي">فساتين ميدي</option>
-        </select>
-      </div>
+    <!-- أزرار الأقسام والفلترة -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="filterCategory('all', this)">الكل</button>
+      <button class="tab-btn" onclick="filterCategory('shoes', this)">أحذية كرة القدم</button>
+      <button class="tab-btn" onclick="filterCategory('figurines', this)">مجسمات وتذكارات</button>
+      <button class="tab-btn" onclick="filterCategory('cars', this)">سيارات ومعدات</button>
+      <button class="tab-btn" onclick="filterCategory('kids', this)">أزياء الأطفال</button>
     </div>
 
     <!-- شبكة المنتجات -->
-    <div class="product-grid" id="productsContainer"></div>
-
-    <!-- زر تحميل المزيد لتصفح الـ 1000 فستان بسلاسة -->
-    <div class="load-more-container">
-      <button class="btn-load" id="loadMoreBtn" onclick="loadMore()">عرض المزيد من التشكيلة</button>
-    </div>
-  </div>
-
-  <!-- درج السلة والطلب -->
-  <div class="cart-drawer" id="cartDrawer">
-    <div class="cart-header">
-      <h3>سلة الشراء</h3>
-      <button style="border:none; background:none; font-size:1.5rem; cursor:pointer;" onclick="toggleCart()">✕</button>
-    </div>
-    <div class="cart-items" id="cartItems">
-      <p style="color:var(--text-muted); text-align:center; margin-top:2rem;">السلة فارغة حالياً</p>
-    </div>
-    <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
-      <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:1rem;">
-        <span>المجموع:</span>
-        <span id="cartTotal">0 د.إ</span>
-      </div>
-      <a href="#" class="btn-checkout" id="whatsappCheckout" target="_blank">إتمام الطلب عبر واتساب</a>
-    </div>
+    <div class="grid" id="productsGrid"></div>
   </div>
 
   <script>
-    // 1. توليد قاعدة بيانات تضم أكثر من 1000 فستان برمجياً
-    const designers = ['أمل الرئيسي', 'زهير مراد', 'إيلي صعب', 'دولتشي آند غابانا', 'ماركيزا', 'ريم عكرا'];
-    const types = ['قفطان مطرز دانتيل', 'فستان سهرة حرير', 'فستان ميدي عصري', 'فستان مخمل ملكي', 'قفطان شيفون انسيابي'];
-    const images = [
-      'https://ounass-ae.atgcdn.ae/pub/media/catalog/product/2/1/216115572_a91_in.jpg',
-      'https://ounass-ae.atgcdn.ae/pub/media/catalog/product/2/1/216115572_a91_cu.jpg',
-      'https://ounass-ae.atgcdn.ae/pub/media/catalog/product/2/1/216115572_a91_bk.jpg',
-      'https://ounass-ae.atgcdn.ae/pub/media/catalog/product/2/1/216115572_a91_ou.jpg'
+    // بيانات المنتجات المستخرجة من الصور مع احتساب خصم 30% تلقائياً
+    const products = [
+      {
+        id: 1,
+        title: "حذاء كرة قدم ميركوريال إير زووم (سول معدني)",
+        category: "shoes",
+        categoryName: "أحذية رياضية",
+        desc: "نعل كروم عاكس فاخر مع تقنية Air Zoom المدمجة وثبات فائق في الملاعب العشبية.",
+        oldPrice: 450,
+        image: "342728.jpg"
+      },
+      {
+        id: 2,
+        title: "حذاء نايكي ميركوريال تيركواز مع سووش ذهبي",
+        category: "shoes",
+        categoryName: "أحذية رياضية",
+        desc: "تصميم خفيف الوزن بتدرج لوني أزرق وتركواز مع سدادات عالية التماسك.",
+        oldPrice: 420,
+        image: "342737.jpg"
+      },
+      {
+        id: 3,
+        title: "حذاء نايكي سوبرفلاي برقبة (إصدار الملاعب)",
+        category: "shoes",
+        categoryName: "أحذية رياضية",
+        desc: "خامة علوية مريحة ومرنة للقدم مع شعار Nike الذهبي.",
+        oldPrice: 430,
+        image: "342733.jpg"
+      },
+      {
+        id: 4,
+        title: "بوت كورة قدم تركواز مقاسات (31-44)",
+        category: "shoes",
+        categoryName: "أحذية رياضية",
+        desc: "حذاء عالي الجودة برقبة مطاطية مرنة مع ألوان فسفورية حيوية ومقاومة للاهتراء.",
+        oldPrice: 380,
+        image: "346488.jpg"
+      },
+      {
+        id: 5,
+        title: "مجسم كرتوني مصغر 3D (سترة كاجوال سوداء)",
+        category: "figurines",
+        categoryName: "مجسمات وتذكارات",
+        desc: "مجسم ديكور ثلاثي الأبعاد بتفاصيل متقنة بحجم قبضة اليد.",
+        oldPrice: 180,
+        image: "346937.jpg"
+      },
+      {
+        id: 6,
+        title: "مجسم أنيميشن ثلاثي الأبعاد لطيف",
+        category: "figurines",
+        categoryName: "مجسمات وتذكارات",
+        desc: "مجسم يدوي مميز مناسب للمكتب والسيارة والهدايا الشخصية.",
+        oldPrice: 180,
+        image: "346931.jpg"
+      },
+      {
+        id: 7,
+        title: "سيارة توفاش كارتال كلاسيكية (ستيشن أبيض)",
+        category: "cars",
+        categoryName: "سيارات ومعدات",
+        desc: "سيارة اقتصادية وعائلية بحالة ممتازة وجاهزة للاستخدام.",
+        oldPrice: 8500,
+        image: "344851.jpg"
+      },
+      {
+        id: 8,
+        title: "توفاش كارتال Tofaş Kartal (لقطة أمامية)",
+        category: "cars",
+        categoryName: "سيارات ومعدات",
+        desc: "هيكل متين، لوحة مرخصة، محرك بحالة تشغيلية جيدة جداً.",
+        oldPrice: 8500,
+        image: "344853.jpg"
+      },
+      {
+        id: 9,
+        title: "كنزة أطفال شتوية رياضية (Junior League)",
+        category: "kids",
+        categoryName: "أزياء الأطفال",
+        desc: "قطن مريح عالي الجودة بلون أخضر مع بنطال رمادي مريح لحركة الأطفال.",
+        oldPrice: 120,
+        image: "344671.jpg"
+      }
     ];
 
-    const allDresses = [];
-    for (let i = 1; i <= 1050; i++) {
-      const des = designers[i % designers.length];
-      const typ = types[i % types.length];
-      const img = images[i % images.length];
-      const price = Math.floor(Math.random() * (6000 - 800 + 1)) + 800;
+    const myWhatsAppNumber = "905000000000"; // يمكنك استبداله برقمك مباشرة
 
-      allDresses.push({
-        id: i,
-        name: `${typ} #${i}`,
-        designer: des,
-        price: price,
-        image: img,
-        category: typ.includes('قفطان') ? 'قفطان' : (typ.includes('سهرة') ? 'سهرة' : 'ميدي')
-      });
-    }
+    function renderProducts(items) {
+      const grid = document.getElementById('productsGrid');
+      grid.innerHTML = '';
 
-    // 2. التحكم في العرض والتصفح (Pagination)
-    let filteredList = [...allDresses];
-    let currentIndex = 0;
-    const pageSize = 12; // يعرض 12 منتج مع كل ضغطة
-    const cart = [];
+      items.forEach(p => {
+        const salePrice = Math.round(p.oldPrice * 0.70); // خصم 30%
+        const msg = encodeURIComponent(`مرحباً، أود طلب المنتج: "${p.title}" بالسعر المخفض (${salePrice} ليرة/درهم) بعد خصم 30%`);
+        const waLink = `https://wa.me/${myWhatsAppNumber}?text=${msg}`;
 
-    function renderProducts(append = false) {
-      const container = document.getElementById('productsContainer');
-      if (!append) container.innerHTML = '';
-
-      const nextSlice = filteredList.slice(currentIndex, currentIndex + pageSize);
-      nextSlice.forEach(item => {
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
-          <img class="card-img" src="${item.image}" alt="${item.name}" loading="lazy">
-          <div class="card-body">
-            <span class="card-designer">${item.designer}</span>
-            <div class="card-title">${item.name}</div>
-            <div class="card-price">${item.price.toLocaleString()} <span>درهم</span></div>
-            <button class="card-btn" onclick="addToCart(${item.id})">إضافة للسلة</button>
+          <div class="discount-badge">خصم 30%</div>
+          <div class="card-img-wrap">
+            <img class="card-img" src="${p.image}" alt="${p.title}" onerror="this.src='https://via.placeholder.com/400x300?text=صورة+المنتج'">
+          </div>
+          <div class="card-content">
+            <span class="cat-tag">${p.categoryName}</span>
+            <h3 class="card-title">${p.title}</h3>
+            <p class="card-desc">${p.desc}</p>
+            <div class="price-box">
+              <span class="sale-price">${salePrice}</span>
+              <span class="regular-price">${p.oldPrice}</span>
+            </div>
+            <a href="${waLink}" target="_blank" class="btn-order">
+              طلب مباشر عبر واتساب
+            </a>
           </div>
         `;
-        container.appendChild(card);
+        grid.appendChild(card);
       });
-
-      currentIndex += pageSize;
-      const loadBtn = document.getElementById('loadMoreBtn');
-      loadBtn.style.display = (currentIndex >= filteredList.length) ? 'none' : 'inline-block';
     }
 
-    function loadMore() {
-      renderProducts(true);
-    }
+    function filterCategory(cat, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
 
-    // 3. البحث والفلترة
-    function handleSearch() {
-      const q = document.getElementById('searchInput').value.toLowerCase().trim();
-      filteredList = allDresses.filter(item => 
-        item.name.toLowerCase().includes(q) || item.designer.toLowerCase().includes(q)
-      );
-      resetPagination();
-    }
-
-    function handleCategory() {
-      const cat = document.getElementById('categoryFilter').value;
-      filteredList = (cat === 'all') ? [...allDresses] : allDresses.filter(i => i.category === cat);
-      resetPagination();
-    }
-
-    function handleSort() {
-      const sort = document.getElementById('sortFilter').value;
-      if (sort === 'low-high') filteredList.sort((a,b) => a.price - b.price);
-      else if (sort === 'high-low') filteredList.sort((a,b) => b.price - a.price);
-      resetPagination();
-    }
-
-    function resetPagination() {
-      currentIndex = 0;
-      renderProducts(false);
-    }
-
-    // 4. السلة وإتمام الطلب
-    function addToCart(id) {
-      const item = allDresses.find(p => p.id === id);
-      cart.push(item);
-      updateCartUI();
-    }
-
-    function updateCartUI() {
-      document.getElementById('cartCount').textContent = cart.length;
-      const list = document.getElementById('cartItems');
-      const totalEl = document.getElementById('cartTotal');
-      
-      if (cart.length === 0) {
-        list.innerHTML = `<p style="color:var(--text-muted); text-align:center; margin-top:2rem;">السلة فارغة</p>`;
-        totalEl.textContent = '0 د.إ';
-        return;
+      if (cat === 'all') {
+        renderProducts(products);
+      } else {
+        renderProducts(products.filter(p => p.category === cat));
       }
-
-      list.innerHTML = '';
-      let sum = 0;
-      cart.forEach((it, idx) => {
-        sum += it.price;
-        const row = document.createElement('div');
-        row.className = 'cart-item';
-        row.innerHTML = `
-          <img src="${it.image}">
-          <div style="flex:1;">
-            <div style="font-weight:600; font-size:0.9rem;">${it.name}</div>
-            <div style="color:var(--text-muted); font-size:0.85rem;">${it.price.toLocaleString()} د.إ</div>
-          </div>
-          <button onclick="removeFromCart(${idx})" style="border:none; color:red; background:none; cursor:pointer;">✕</button>
-        `;
-        list.appendChild(row);
-      });
-
-      totalEl.textContent = sum.toLocaleString() + ' د.إ';
-
-      // تجهيز رابط الواتساب
-      const msg = encodeURIComponent(`مرحباً، أود تأكيد طلبي لعدد ${cart.length} فستان، الإجمالي: ${sum} درهم إماراتي.`);
-      document.getElementById('whatsappCheckout').href = `https://wa.me/971000000000?text=${msg}`;
     }
 
-    function removeFromCart(index) {
-      cart.splice(index, 1);
-      updateCartUI();
-    }
-
-    function toggleCart() {
-      document.getElementById('cartDrawer').classList.toggle('open');
-    }
-
-    // بدء التشغيل
-    renderProducts();
+    // عرض الكل عند تحميل الصفحة
+    renderProducts(products);
   </script>
 </body>
 </html>
