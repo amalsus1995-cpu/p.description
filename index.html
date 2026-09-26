@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>متجر النخبة | خصم 30%</title>
+  <title>بوتيك الأناقة | تشكيلة حصرية بخصم 30%</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #0f172a;
-      --accent: #2563eb;
+      --primary: #1e1b4b;
+      --accent: #be185d;
       --sale: #e11d48;
-      --bg: #f8fafc;
+      --bg: #fdf2f8;
       --card: #ffffff;
-      --text: #1e293b;
-      --text-muted: #64748b;
-      --border: #e2e8f0;
+      --text: #1f2937;
+      --text-muted: #6b7280;
+      --border: #fbcfe8;
       --whatsapp: #25d366;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
-    body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
+    body { background-color: var(--bg); color: var(--text); }
 
     .top-banner {
       background: var(--sale);
@@ -42,7 +42,7 @@
       align-items: center;
       box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
-    .brand { font-size: 1.4rem; font-weight: 800; color: var(--primary); }
+    .brand { font-size: 1.4rem; font-weight: 800; color: var(--accent); }
 
     .container { max-width: 1250px; margin: 1.5rem auto; padding: 0 1rem; }
 
@@ -66,14 +66,14 @@
       color: var(--text-muted);
     }
     .tab-btn.active, .tab-btn:hover {
-      background: var(--primary);
+      background: var(--accent);
       color: #fff;
-      border-color: var(--primary);
+      border-color: var(--accent);
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 1.5rem;
     }
 
@@ -90,7 +90,7 @@
     }
     .card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 10px 20px rgba(190, 24, 93, 0.1);
     }
     .discount-badge {
       position: absolute;
@@ -106,8 +106,8 @@
     }
     .card-img-wrap {
       width: 100%;
-      height: 290px;
-      background: #f1f5f9;
+      height: 330px;
+      background: #fdf4f7;
       overflow: hidden;
     }
     .card-img {
@@ -129,7 +129,6 @@
       font-size: 0.75rem;
       font-weight: 700;
       color: var(--accent);
-      text-transform: uppercase;
       margin-bottom: 0.3rem;
     }
     .card-title {
@@ -182,110 +181,128 @@
 </head>
 <body>
 
-  <div class="top-banner">🔥 عروض خاصة: خصم 30% على جميع المعروضات لفترة محدودة! 🔥</div>
+  <div class="top-banner">✨ تخفيضات الموسم الكبرى: خصم 30% على جميع الموديلات لفترة محدودة! ✨</div>
 
   <header>
-    <div class="brand">AL-NOKHBA STORE</div>
-    <div style="font-size: 0.85rem; color: var(--text-muted);">توصيل فوري | دفع عند الاستلام</div>
+    <div class="brand">MODA & LINGERIE</div>
+    <div style="font-size: 0.85rem; color: var(--text-muted);">توصيل فوري وسريع | دفع عند الاستلام</div>
   </header>
 
   <div class="container">
     <div class="tabs">
-      <button class="tab-btn active" onclick="filterCategory('all', this)">الكل</button>
-      <button class="tab-btn" onclick="filterCategory('shoes', this)">أحذية كرة القدم</button>
-      <button class="tab-btn" onclick="filterCategory('figurines', this)">مجسمات وتذكارات</button>
-      <button class="tab-btn" onclick="filterCategory('cars', this)">سيارات ومعدات</button>
-      <button class="tab-btn" onclick="filterCategory('kids', this)">أزياء الأطفال</button>
+      <button class="tab-btn active" onclick="filterCategory('all', this)">كل الموديلات</button>
+      <button class="tab-btn" onclick="filterCategory('short', this)">فساتين قصيرة ومفتوحة</button>
+      <button class="tab-btn" onclick="filterCategory('bride', this)">تفريعات وروب عرايس</button>
+      <button class="tab-btn" onclick="filterCategory('sets', this)">أطقم لانجري دانتيل</button>
     </div>
 
     <div class="grid" id="productsGrid"></div>
   </div>
 
   <script>
+    // المنتجات المستخرجة من الصور مع خصم 30% وروابط مباشرة جاهزة
     const products = [
       {
         id: 1,
-        title: "حذاء كرة قدم ميركوريال إير زووم (سول عاكس)",
-        category: "shoes",
-        categoryName: "أحذية رياضية",
-        desc: "نعل كروم عاكس فاخر مع وسادة هوائية Air Zoom مدمجة لثبات وديناميكية عالية.",
-        oldPrice: 450,
-        image: "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=700&q=80"
+        title: "فستان أحمر قصير بأربطة جانبية متقاطعة (Code 155)",
+        category: "short",
+        categoryName: "فساتين قصيرة",
+        desc: "تصميم جريء فري سايز بقماش مخمل ناعم وأربطة مشد جانبية وصدرية مفتوحة.",
+        oldPrice: 15000,
+        image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=700&q=80"
       },
       {
         id: 2,
-        title: "حذاء نايكي ميركوريال تيركواز وذهبي",
-        category: "shoes",
-        categoryName: "أحذية رياضية",
-        desc: "خفة وزن استثنائية ونعل احترافي للملاعب العشبية وسدادات عالية التماسك.",
-        oldPrice: 420,
-        image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=700&q=80"
+        title: "قميص نوم أحمر طويل دانتيل شباك (كود 0160)",
+        category: "bride",
+        categoryName: "تفريعات نوم",
+        desc: "دانتيل شفاف بنقشة زهور أنيقة مع فتحة رقبة واسعة وقصة ماكسي انسيابية.",
+        oldPrice: 18000,
+        image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=700&q=80"
       },
       {
         id: 3,
-        title: "حذاء سوبرفلاي برقبة مطاطية عالية",
-        category: "shoes",
-        categoryName: "أحذية رياضية",
-        desc: "رقبة داعمة للكاحل تمنح مرونة وانسيابية قصوى أثناء الجري والمراوغة.",
-        oldPrice: 430,
-        image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=700&q=80"
+        title: "بيبي دول أحمر تل ناعم مع تفاصيل كشكش",
+        category: "short",
+        categoryName: "فساتين قصيرة",
+        desc: "صدرية دانتيل فاخرة مع تنورة قصيرة من التل الشفاف الخفيف وكلوت متناسق.",
+        oldPrice: 12000,
+        image: "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=700&q=80"
       },
       {
         id: 4,
-        title: "بوت كورة قدم ترابي وعشبي مقاسات (31-44)",
-        category: "shoes",
-        categoryName: "أحذية رياضية",
-        desc: "ألوان حيوية وخامة علوية متينة ومقاومة للاحتكاك في مختلف الأرضيات.",
-        oldPrice: 380,
-        image: "https://images.unsplash.com/photo-1575537302964-96cd47c06b1b?auto=format&fit=crop&w=700&q=80"
+        title: "فستان ضيق أحمر مع رباط جانبي قابل للزم",
+        category: "short",
+        categoryName: "فساتين قصيرة",
+        desc: "قصة مزمومة قابلة لتعديل الطول مع صدرية دانتيل مطرزة لإطلالة جذابة ومثيرة.",
+        oldPrice: 14000,
+        image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=700&q=80"
       },
       {
         id: 5,
-        title: "مجسم 3D كرتوني شخصية رياضية",
-        category: "figurines",
-        categoryName: "مجسمات وتذكارات",
-        desc: "مجسم يدوي ثلاثي الأبعاد بتفاصيل دقيقة بحجم قبضة اليد لديكور المكتب والسيارة.",
-        oldPrice: 180,
-        image: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=700&q=80"
+        title: "تفريعة تول ودانتيل شادو نبيتي (Model 8064)",
+        category: "short",
+        categoryName: "فساتين قصيرة",
+        desc: "لون خمري أنيق مع كورسيه شفاف دانتيل وقصة حافة غير متماثلة بكشكشة عصرية.",
+        oldPrice: 16000,
+        image: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=700&q=80"
       },
       {
         id: 6,
-        title: "مجسم أنيميشن ثلاثي الأبعاد مصغر",
-        category: "figurines",
-        categoryName: "مجسمات وتذكارات",
-        desc: "تصميم أنيق مستوحى من ستايل الكارتون عالي الجودة ومناسب للهدايا التذكارية.",
-        oldPrice: 180,
-        image: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=700&q=80"
+        title: "طقم روب وفستان سهرة أحمر دانتيل تركي",
+        category: "bride",
+        categoryName: "تفريعات وروب عرايس",
+        desc: "فستان بحمالات رفيعة مع روب دانتيل طويل بأكمام واسعة وحزام ساتان للخصر.",
+        oldPrice: 24000,
+        image: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=700&q=80"
       },
       {
         id: 7,
-        title: "سيارة توفاش كارتال كلاسيكية (ستيشن أبيض)",
-        category: "cars",
-        categoryName: "سيارات ومعدات",
-        desc: "سيارة عائلية اقتصادية وعملية بحالة فنية ممتازة وتراخيص سارية.",
-        oldPrice: 8500,
-        image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=700&q=80"
+        title: "فستان بوش أب أحمر تل مطرز (تركياتا كولكشن)",
+        category: "bride",
+        categoryName: "تفريعات وروب عرايس",
+        desc: "كأس صدرية داعمة Push-Up مع تطريز دانتيل بارز وتنورة تل واسعة ورباط عنق.",
+        oldPrice: 20000,
+        image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=700&q=80"
       },
       {
         id: 8,
-        title: "طقم كنزة شتوية للأطفال (Junior League)",
-        category: "kids",
-        categoryName: "أزياء الأطفال",
-        desc: "خامة قطنية دافئة بلون أخضر مع بنطال رياضي مريح لحركة الأطفال.",
-        oldPrice: 120,
-        image: "https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=700&q=80"
+        title: "تفريعة نوم تركواز مريحة للعرايس (SH-28)",
+        category: "bride",
+        categoryName: "تفريعات نوم",
+        desc: "تل شفاف باللون التركوازي الهادئ مع تطريز صدرية أنيق وقصة خلفية مميزة.",
+        oldPrice: 13500,
+        image: "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        id: 9,
+        title: "طقم لانجري نسائي دانتيل رمادي بسلك داخلي",
+        category: "sets",
+        categoryName: "أطقم لانجري",
+        desc: "براليت مريحة بسلك رفع وقماش دانتيل ناعم مع كلوت متناسق بفيونكة كلاسيكية.",
+        oldPrice: 9000,
+        image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        id: 10,
+        title: "طقم لانجري دانتيل أخضر فاتح (FineLook)",
+        category: "sets",
+        categoryName: "أطقم لانجري",
+        desc: "خامة دانتيل قطنية ناعمة توفر الراحة والأناقة اليومية مع دعم مثالي للصدر.",
+        oldPrice: 9500,
+        image: "https://images.unsplash.com/photo-1574015974293-817f0ebebb74?auto=format&fit=crop&w=700&q=80"
       }
     ];
 
-    const myWhatsAppNumber = "905555555555"; // ضع رقمك هنا بدون أصفار أو علامة +
+    const myWhatsAppNumber = "905555555555"; // ضع رقمك هنا
 
     function renderProducts(items) {
       const grid = document.getElementById('productsGrid');
       grid.innerHTML = '';
 
       items.forEach(p => {
-        const salePrice = Math.round(p.oldPrice * 0.70); // احتساب خصم 30% تلقائياً
-        const msg = encodeURIComponent(`مرحباً، أريد طلب: "${p.title}" بالسعر بعد الخصم (${salePrice})`);
+        const salePrice = Math.round(p.oldPrice * 0.70); // خصم 30%
+        const msg = encodeURIComponent(`مرحباً، أود طلب الموديل: "${p.title}" بالسعر بعد خصم 30% (${salePrice.toLocaleString()})`);
         const waLink = `https://wa.me/${myWhatsAppNumber}?text=${msg}`;
 
         const card = document.createElement('div');
@@ -300,10 +317,10 @@
             <h3 class="card-title">${p.title}</h3>
             <p class="card-desc">${p.desc}</p>
             <div class="price-box">
-              <span class="sale-price">${salePrice}</span>
-              <span class="regular-price">${p.oldPrice}</span>
+              <span class="sale-price">${salePrice.toLocaleString()}</span>
+              <span class="regular-price">${p.oldPrice.toLocaleString()}</span>
             </div>
-            <a href="${waLink}" target="_blank" class="btn-order">طلب مباشر عبر واتساب</a>
+            <a href="${waLink}" target="_blank" class="btn-order">طلب فوري عبر واتساب</a>
           </div>
         `;
         grid.appendChild(card);
