@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة التحقق الموحد | بيئة تجريبية</title>
-    <!-- استدعاء خط تجوال العربي -->
+    <title>بوابة التحقق التجريبية | QuickAuth</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #2563eb;
             --primary-dark: #1d4ed8;
-            --bg-color: #f1f5f9;
+            --success: #16a34a;
+            --bg-color: #f8fafc;
             --card-bg: #ffffff;
             --text-main: #0f172a;
             --text-sub: #64748b;
-            --border-color: #e2e8f0;
+            --border: #e2e8f0;
         }
 
         * {
@@ -36,24 +36,24 @@
         .auth-card {
             background: var(--card-bg);
             width: 100%;
-            max-width: 420px;
+            max-width: 440px;
             border-radius: 16px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             padding: 32px 24px;
             text-align: center;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border);
         }
 
         .logo-badge {
-            width: 60px;
-            height: 60px;
+            width: 56px;
+            height: 56px;
             background: #eff6ff;
             color: var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
             margin: 0 auto 16px;
         }
@@ -86,7 +86,7 @@
         input[type="text"] {
             width: 100%;
             padding: 12px 14px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border);
             border-radius: 8px;
             font-size: 15px;
             outline: none;
@@ -114,30 +114,70 @@
             background-color: var(--primary-dark);
         }
 
-        /* شاشة التحقق والرقم العشوائي */
-        .verification-step {
+        .hidden-step {
             display: none;
         }
 
+        /* شاشة التحقق والرقم */
         .code-display {
-            width: 100px;
-            height: 100px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
-            border: 4px dashed var(--primary);
+            border: 4px solid var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 36px;
+            font-size: 42px;
             font-weight: 800;
             color: var(--primary);
             margin: 20px auto;
-            background: #f8fafc;
+            background: #eff6ff;
+            animation: pulse 2s infinite;
         }
 
-        .timer {
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        .timer-bar-container {
+            width: 100%;
+            height: 6px;
+            background: #f1f5f9;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 16px 0;
+        }
+
+        .timer-bar {
+            height: 100%;
+            width: 100%;
+            background: var(--primary);
+            transition: width 1s linear;
+        }
+
+        .status-spinner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             font-size: 13px;
             color: var(--text-sub);
             margin-bottom: 20px;
+        }
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #cbd5e1;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         .btn-cancel {
@@ -149,10 +189,43 @@
             text-decoration: underline;
         }
 
-        .test-notice {
+        /* شاشة لوحة التحكم التجريبية بعد النجاح */
+        .success-icon {
+            width: 60px;
+            height: 60px;
+            background: #dcfce7;
+            color: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 16px;
+        }
+
+        .demo-panel {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 20px 0;
+            text-align: right;
+            font-size: 13px;
+            color: var(--text-main);
+        }
+
+        .demo-panel div {
+            margin-bottom: 8px;
+        }
+
+        .demo-panel div:last-child {
+            margin-bottom: 0;
+        }
+
+        .test-footer {
             margin-top: 24px;
             padding-top: 12px;
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid var(--border);
             font-size: 11px;
             color: #94a3b8;
         }
@@ -161,95 +234,145 @@
 <body>
 
     <div class="auth-card">
-        <!-- أيقونة / شعار وهمي -->
         <div class="logo-badge">QA</div>
 
-        <!-- الخطوة 1: إدخال البيانات -->
+        <!-- 1: نموذج الإدخال -->
         <div id="step-login">
             <h2>بوابة الدخول الموحد</h2>
-            <p class="description">أدخل رقم الهوية أو اسم المستخدم للمتابعة</p>
+            <p class="description">أدخل رقم الهوية أو المعرّف للمتابعة</p>
 
             <form id="loginForm">
                 <div class="input-group">
                     <label for="userId">رقم المعرّف / الهوية</label>
-                    <input type="text" id="userId" placeholder="مثال: 1023456789" required autocomplete="off">
+                    <input type="text" id="userId" placeholder="10xxxxxxxx" required autocomplete="off">
                 </div>
-                <button type="submit" class="btn-submit">تسجيل الدخول</button>
+                <button type="submit" class="btn-submit">متابعة الطلب</button>
             </form>
         </div>
 
-        <!-- الخطوة 2: عرض رمز التأكيد والانتظار -->
-        <div id="step-verify" class="verification-step">
-            <h2>تأكيد الطلب</h2>
-            <p class="description">الرجاء اختيار الرقم التالي من تطبيق المصادقة الخاص بك:</p>
+        <!-- 2: شاشة الانتظار والرمز العشوائي -->
+        <div id="step-verify" class="hidden-step">
+            <h2>تأكيد المصادقة</h2>
+            <p class="description">قم باختيار الرمز التالي في تطبيق المصادقة الخاص بك لإكمال الدخول</p>
 
-            <!-- الرقم التلقائي -->
             <div class="code-display" id="displayCode">--</div>
 
-            <div class="timer">
-                متبقي على انتهاء الصلاحية: <span id="timeLeft">60</span> ثانية
+            <div class="timer-bar-container">
+                <div class="timer-bar" id="timerBar"></div>
             </div>
 
-            <button type="button" class="btn-cancel" id="btnCancel">إلغاء والعودة</button>
+            <div class="status-spinner">
+                <div class="spinner"></div>
+                <span>بانتظار التأكيد من الجهاز... (<span id="timeLeft">30</span>ث)</span>
+            </div>
+
+            <button type="button" class="btn-cancel" id="btnCancel">إلغاء العملية</button>
         </div>
 
-        <div class="test-notice">
-            واجهة تجريبية لأغراض الاختبار وتطوير الواجهات فقط
+        <!-- 3: لوحة التحكم التجريبية بعد نجاح الدخول -->
+        <div id="step-success" class="hidden-step">
+            <div class="success-icon">✓</div>
+            <h2>تم التحقق بنجاح</h2>
+            <p class="description">تمت المصادقة وتأكيد هويتك بنجاح في البيئة التجريبية.</p>
+
+            <div class="demo-panel">
+                <div><strong>المعرّف:</strong> <span id="confirmedId">-</span></div>
+                <div><strong>حالة الجلسة:</strong> نشطة (تجريبية)</div>
+                <div><strong>وقت المصادقة:</strong> <span id="authTime">-</span></div>
+            </div>
+
+            <button type="button" class="btn-submit" id="btnLogout">تسجيل الخروج والبدء من جديد</button>
+        </div>
+
+        <div class="test-footer">
+            بيئة تفاعلية تجريبية لاختبار تدفق تسجيل الدخول (Mockup)
         </div>
     </div>
 
     <script>
-        const loginForm = document.getElementById('loginForm');
         const stepLogin = document.getElementById('step-login');
         const stepVerify = document.getElementById('step-verify');
+        const stepSuccess = document.getElementById('step-success');
+
+        const loginForm = document.getElementById('loginForm');
+        const userIdInput = document.getElementById('userId');
         const displayCode = document.getElementById('displayCode');
         const timeLeft = document.getElementById('timeLeft');
+        const timerBar = document.getElementById('timerBar');
         const btnCancel = document.getElementById('btnCancel');
+        const btnLogout = document.getElementById('btnLogout');
 
-        let timerInterval = null;
+        const confirmedId = document.getElementById('confirmedId');
+        const authTime = document.getElementById('authTime');
 
-        // عند إرسال النموذج
-        loginForm.addEventListener('submit', function(e) {
+        let countdown = null;
+        let autoApproveTimeout = null;
+        const totalDuration = 30; // 30 ثانية
+
+        // إرسال النموذج والانتقال لشاشة الرمز
+        loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            const idVal = userIdInput.value.trim();
+            if (!idVal) return;
 
-            // توليد رقم عشوائي بين 10 و 99
-            const randomCode = Math.floor(Math.random() * 90) + 10;
-            displayCode.textContent = randomCode;
+            // توليد رمز رقمي عشوائي
+            const code = Math.floor(Math.random() * 90) + 10;
+            displayCode.textContent = code;
 
-            // التبديل بين الواجهات
+            // تحديث الواجهة
             stepLogin.style.display = 'none';
             stepVerify.style.display = 'block';
 
-            // تشغيل العداد التنازلي (60 ثانية)
-            startCountdown(60);
+            // تشغيل العداد والمحاكاة التلقائية للنجاح
+            startVerificationProcess(idVal);
         });
 
-        // زر العودة
-        btnCancel.addEventListener('click', resetFlow);
-
-        function startCountdown(seconds) {
-            clearInterval(timerInterval);
-            let remaining = seconds;
+        function startVerificationProcess(id) {
+            let remaining = totalDuration;
             timeLeft.textContent = remaining;
+            timerBar.style.width = '100%';
 
-            timerInterval = setInterval(() => {
+            countdown = setInterval(() => {
                 remaining--;
                 timeLeft.textContent = remaining;
+                const percentage = (remaining / totalDuration) * 100;
+                timerBar.style.width = percentage + '%';
 
                 if (remaining <= 0) {
-                    clearInterval(timerInterval);
-                    alert('انتهت صلاحية الجلسة التجريبية.');
-                    resetFlow();
+                    resetToStart();
+                    alert('انتهت مهلة التحقق التجريبية، حاول مجدداً.');
                 }
             }, 1000);
+
+            // محاكاة استجابة الجهاز والموافقة تلقائياً بعد 6 ثوانٍ
+            autoApproveTimeout = setTimeout(() => {
+                showSuccess(id);
+            }, 6000);
         }
 
-        function resetFlow() {
-            clearInterval(timerInterval);
-            document.getElementById('userId').value = '';
+        function showSuccess(id) {
+            clearInterval(countdown);
+            clearTimeout(autoApproveTimeout);
+
             stepVerify.style.display = 'none';
+            stepSuccess.style.display = 'block';
+
+            confirmedId.textContent = id;
+            authTime.textContent = new Date().toLocaleTimeString('ar-SA');
+        }
+
+        function resetToStart() {
+            clearInterval(countdown);
+            clearTimeout(autoApproveTimeout);
+            userIdInput.value = '';
+
+            stepVerify.style.display = 'none';
+            stepSuccess.style.display = 'none';
             stepLogin.style.display = 'block';
         }
+
+        btnCancel.addEventListener('click', resetToStart);
+        btnLogout.addEventListener('click', resetToStart);
     </script>
 </body>
 </html>
